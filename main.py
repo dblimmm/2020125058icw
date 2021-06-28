@@ -7,7 +7,7 @@ from PIL import ImageDraw, ImageFont, Image
 import adafruit_rgb_display.st7789 as st7789
 
 import pin_setting as setting
-from classes import Open_title, Background, U_cat, Bullet, Minicat, Meteor, Small_meteor, Check_crash, Repeat
+from classes import Open_title, Background, U_cat, Bullet, Minicat, Meteor, Small_meteor, Check_crash, Repeat, delete_trash
 
 # Create the display
 cs_pin = DigitalInOut(board.CE0)
@@ -90,6 +90,7 @@ while True:
     for j in range(len(meteors)):
         meteors[j].move()
         
+        #if meteor touch right wall, delete that meteor
         if (meteors[j].check_touch_wall()):
             have_to_delete_meteors.append(j)
             continue
@@ -106,11 +107,9 @@ while True:
         if (bullets[i].check_touch_wall()):
             have_to_delete_bullets.append(i)
             
-    #delete trach bullets        
-    for i in reversed(have_to_delete_bullets):
-        del bullets[i]
-    have_to_delete_bullets = []
-    
+    #delete trash data that touch wall     
+    have_to_delete_bullets = delete_trash(bullets, have_to_delete_bullets)
+    have_to_delete_meteors = delete_trash(meteors, have_to_delete_meteors)
     
     #~CHECK CHASH~
     #check bullets and meteors
@@ -143,14 +142,9 @@ while True:
                 meteors = meteors[j].append_meteor(meteors[j].size, meteors)
     
     
-    #~DELETE TRASH DATA~ (broken meteors, bullets ... etc)
-    for i in reversed(have_to_delete_bullets):
-        del bullets[i]
-    have_to_delete_bullets = []
-    
-    for j in reversed(have_to_delete_meteors):
-        del meteors[j]
-    have_to_delete_meteors = []
+    #delete trash data (broken meteors, bullets ... that created by crash)
+    have_to_delete_bullets = delete_trash(bullets, have_to_delete_bullets)
+    have_to_delete_meteors = delete_trash(meteors, have_to_delete_meteors)
     
     
     #~DRAWING~
