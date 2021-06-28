@@ -178,11 +178,8 @@ while True:
         game_over = 0
         player = U_cat()
         minicat = Minicat()
-        check_crash = Check_crash()
         bullets = []
         meteors = []
-        have_to_delete_bullets = []
-        have_to_delete_meteors = []
         meteor_apper_random_time_cycle = 0
         time_last_meteor_appear = 0
         
