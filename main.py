@@ -107,10 +107,10 @@ while True:
         if (bullets[i].check_touch_wall()):
             have_to_delete_bullets.append(i)
             
-    #delete trash data that touch wall     
-    bullets = delete_trash(bullets, have_to_delete_bullets)
-    meteors = delete_trash(meteors, have_to_delete_meteors)
-    have_to_delete_meteors = have_to_delete_bullets = []
+    #delete trach bullets        
+    for i in reversed(have_to_delete_bullets):
+        del bullets[i]
+    have_to_delete_bullets = []
     
     #~CHECK CHASH~
     #check bullets and meteors
@@ -142,10 +142,14 @@ while True:
                 #if broken meteor is big meteor, call two small meteors
                 meteors = meteors[j].append_meteor(meteors[j].size, meteors)
     
-    #delete trash data (broken meteors, bullets ... that created by crash)
-    bullets = delete_trash(bullets, have_to_delete_bullets)
-    meteors = delete_trash(meteors, have_to_delete_meteors)
-    have_to_delete_meteors = have_to_delete_bullets = []
+    #~DELETE TRASH DATA~ (broken meteors, bullets ... etc)
+    for i in reversed(have_to_delete_bullets):
+        del bullets[i]
+    have_to_delete_bullets = []
+    
+    for j in reversed(have_to_delete_meteors):
+        del meteors[j]
+    have_to_delete_meteors = []
     
     
     #~DRAWING~
