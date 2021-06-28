@@ -243,4 +243,4 @@ class Check_crash:
 def delete_trash(data_list, delete_list):
             for i in reversed(delete_list):
                 del data_list[i]
-            return []
+            return data_list
