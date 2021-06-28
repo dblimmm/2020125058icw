@@ -81,15 +81,17 @@ class Minicat:
          self.direction = True
      
      def shoot(self, u_cat_y, have_minicat):
+         #if button B pressed but U-cat don't have minicat
          if (have_minicat < 1) :
              return have_minicat
+         
          self.y = u_cat_y
         
          #change player's have_minicat status
          return 0
         
      def move(self, u_cat_y, have_minicat):
-         if (self.direction == True): #head right
+         if (self.direction == True): #head right, go right
              self.x += 15
          else: #head left
              self.x -= 15
@@ -129,7 +131,7 @@ class Meteor:
             #set initial status
             self.y = random.randrange(0, 196) #196 is 240 - meteor height
             self.x = 196
-            self.size = 54
+            self.size = 54 #image size
             self.hp = 10
 
       def move(self):
@@ -147,8 +149,11 @@ class Meteor:
 
       #when big meteor broken, call two small meteors
       def append_meteor(self, meteor_size, meteor_list):
+            #if broken meteor is small meteor, return same list
             if (meteor_size != 54):
                 return meteor_list
+            
+            #appen meteors and return
             meteor_list.append(Small_meteor(True, self.x, self.y))
             meteor_list.append(Small_meteor(False, self.x, self.y))
             return meteor_list
@@ -199,6 +204,8 @@ class Small_meteor(Meteor):
             if (self.y > 206):
                 self.direction = True
                 self.y = 206
+                
+            return 0
        
       def select_image(self):
             if (self.hp > 3):
