@@ -141,7 +141,6 @@ while True:
                 #if broken meteor is big meteor, call two small meteors
                 meteors = meteors[j].append_meteor(meteors[j].size, meteors)
     
-    
     #delete trash data (broken meteors, bullets ... that created by crash)
     have_to_delete_bullets = delete_trash(bullets, have_to_delete_bullets)
     have_to_delete_meteors = delete_trash(meteors, have_to_delete_meteors)
