@@ -108,8 +108,9 @@ while True:
             have_to_delete_bullets.append(i)
             
     #delete trash data that touch wall     
-    have_to_delete_bullets = delete_trash(bullets, have_to_delete_bullets)
-    have_to_delete_meteors = delete_trash(meteors, have_to_delete_meteors)
+    bullets = delete_trash(bullets, have_to_delete_bullets)
+    meteors = delete_trash(meteors, have_to_delete_meteors)
+    have_to_delete_meteors = have_to_delete_bullets = []
     
     #~CHECK CHASH~
     #check bullets and meteors
@@ -142,8 +143,9 @@ while True:
                 meteors = meteors[j].append_meteor(meteors[j].size, meteors)
     
     #delete trash data (broken meteors, bullets ... that created by crash)
-    have_to_delete_bullets = delete_trash(bullets, have_to_delete_bullets)
-    have_to_delete_meteors = delete_trash(meteors, have_to_delete_meteors)
+    bullets = delete_trash(bullets, have_to_delete_bullets)
+    meteors = delete_trash(meteors, have_to_delete_meteors)
+    have_to_delete_meteors = have_to_delete_bullets = []
     
     
     #~DRAWING~
