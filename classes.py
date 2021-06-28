@@ -238,3 +238,9 @@ class Check_crash:
                 if ((minicat_direction == False) and (meteor_x < minicat_x < meteor_x + meteor_size)):
                     return 1
           return 0      
+
+#delete data[delete_list] and retrun empty list
+def delete_trash(data_list, delete_list):
+            for i in reversed(delete_list):
+                del data_list[i]
+            return []
