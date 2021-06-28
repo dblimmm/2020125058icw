@@ -35,7 +35,7 @@ height = disp.height
 image = Image.new("RGB", (width, height))
 draw = ImageDraw.Draw(image)
 
-#set variables
+# Set variables
 score = 0
 game_over = 0
 player = U_cat()
@@ -48,7 +48,7 @@ have_to_delete_meteors = []
 meteor_apper_random_time_cycle = 0
 time_last_meteor_appear = 0
 
-#open title image
+#Open title image
 image.paste(Open_title().start, (0, 0))
 disp.image(image)
 
@@ -89,9 +89,11 @@ while True:
     #move meteors and check meteor touch wall or cat(game over)
     for j in range(len(meteors)):
         meteors[j].move()
+        
         if (meteors[j].check_touch_wall()):
             have_to_delete_meteors.append(j)
             continue
+            
         if (check_crash.check_crash_cat_and_meteor(player.select_cat_image(), meteors[j].size, player.y, meteors[j].x, meteors[j].y)):
             game_over = 1
             break
@@ -99,9 +101,11 @@ while True:
     #move bullets and check bullet touch wall
     for i in range(len(bullets)):
         bullets[i].move_bullet()
+        
         #if bullet touch right wall, delete that bullet
         if (bullets[i].check_touch_wall()):
             have_to_delete_bullets.append(i)
+            
     #delete trach bullets        
     for i in reversed(have_to_delete_bullets):
         del bullets[i]
@@ -112,26 +116,30 @@ while True:
     #check bullets and meteors
     for i in range(len(bullets)):
         for j in range(len(meteors)):
-            #if bullet hit meteor
+            #if bullet hit meteor, score up and delete that bullet
             if (check_crash.check_crash_bullet_and_meteor(meteors[j].size, bullets[i].x, bullets[i].y, meteors[j].x, meteors[j].y)):
                 meteors[j].decrease_hp()
                 score += 1
                 have_to_delete_bullets.append(i)
-                #if bullet break meteor
+                
+                #if bullet break meteor, score up and delete that meteor
                 if (meteors[j].hp == 0):
                     have_to_delete_meteors.append(j)
                     score += 10
+                    
                     #if broken meteor is big meteor, call two small meteors
                     meteors = meteors[j].append_meteor(meteors[j].size, meteors)
     
     #check minicat and meteors
     if (player.have_minicat == 0):
         for j in range(len(meteors)):
-            #if minicat hit meteor
+            
+            #if minicat hit meteor, score up and delete that meteor
             if (check_crash.check_crash_minicat_and_meteor(meteors[j].size, minicat.direction, minicat.x, minicat.y, meteors[j].x, meteors[j].y)):
                 have_to_delete_meteors.append(j)
                 score += 10
-                ##if broken meteor is big meteor, call two small meteors
+                
+                #if broken meteor is big meteor, call two small meteors
                 meteors = meteors[j].append_meteor(meteors[j].size, meteors)
     
     
